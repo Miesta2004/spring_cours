@@ -2,15 +2,15 @@ package com.example.spring.services.impl;
 
 import com.example.spring.data.entities.Categorie;
 import com.example.spring.data.repository.CategorieRepository;
-import com.example.spring.services.CategorieService;
 //import lombok.RequiredArgsConstructor;
+import com.example.spring.services.IService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 //@RequiredArgsConstructor
 @Service
-public class CategorieServiceImpl implements CategorieService {
+public class CategorieServiceImpl implements IService<Categorie> {
 
     private final CategorieRepository categorieRepository;
 

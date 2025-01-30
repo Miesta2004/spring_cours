@@ -10,10 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class CategorieMock implements CommandLineRunner {
 
     private final CategorieRepository categorieRepository;
+    
+    public CategorieMock(CategorieRepository categorieRepository) {
+        this.categorieRepository = categorieRepository;
+    }
+
     @Override
     public void run(String... args) throws Exception {
         List<Categorie> categories = new ArrayList<>();
