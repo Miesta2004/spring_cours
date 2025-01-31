@@ -1,5 +1,6 @@
 package com.example.spring.web.controllers;
 
+import com.example.spring.web.dto.response.ArticleAllResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,12 +12,6 @@ public interface IController<T> {
     @GetMapping("/list")
     //c est une requete GET et on met uri assoccie
     ResponseEntity<List<T>> getAllObjects();
-    @GetMapping("/one/{id}")
-    ResponseEntity<T> getOneObject(@PathVariable() Long id);
-    @PostMapping("/create")
-    ResponseEntity<T> createObject(T data);
-    @PutMapping("/update/{id}")
-    ResponseEntity<T> updateObject(@PathVariable() Long id, T data);
     @DeleteMapping("/delete/{id}")
     ResponseEntity<Boolean> deleteObject(@PathVariable() Long id);
 }

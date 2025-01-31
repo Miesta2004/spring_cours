@@ -2,13 +2,16 @@ package com.example.spring.services.impl;
 
 import com.example.spring.data.entities.Client;
 import com.example.spring.data.repository.ClientRepository;
-import com.example.spring.services.IService;
+import com.example.spring.services.ClientService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-public class ClientServiceImpl implements IService<Client> {
+public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
 
@@ -16,11 +19,13 @@ public class ClientServiceImpl implements IService<Client> {
         this.clientRepository = clientRepository;
     }
 
+    @Transactional
     @Override
     public Client create(Client objet) {
         return clientRepository.save(objet);
     }
 
+    @Transactional
     @Override
     public Client update(Long id, Client objet) {
         Client client = clientRepository.findById(id).orElse(null);
@@ -51,5 +56,10 @@ public class ClientServiceImpl implements IService<Client> {
     @Override
     public List<Client> getAll() {
         return clientRepository.findAll();
+    }
+
+    @Override
+    public Page<Client> getAllClients(Pageable pageable) {
+        return clientRepository.findAll(pageable);
     }
 }

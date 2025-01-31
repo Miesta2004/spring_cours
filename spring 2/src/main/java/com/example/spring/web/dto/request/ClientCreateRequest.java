@@ -1,27 +1,24 @@
-package com.example.spring.data.entities;
+package com.example.spring.web.dto.request;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import java.util.List;
+import com.example.spring.data.entities.Client;
 
-//@Getter
-//@Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
-@Entity
-public class Client {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+public class ClientCreateRequest {
     private Long id;
     private String nom;
     private String prenom;
     private String telephone;
     private String adresse;
-    @OneToMany(mappedBy = "client",cascade = CascadeType.PERSIST)
-    private List<Commande> commandes;
+
+    public Client toEntity(){
+        var client = new Client();
+        client.setId(this.id);
+        client.setNom(this.nom);
+        client.setPrenom(this.prenom);
+        client.setTelephone(this.telephone);
+        client.setAdresse(this.adresse);
+        return client;
+    }
 
     public Long getId() {
         return id;
@@ -63,11 +60,4 @@ public class Client {
         this.adresse = adresse;
     }
 
-    public List<Commande> getCommandes() {
-        return commandes;
-    }
-
-    public void setCommandes(List<Commande> commandes) {
-        this.commandes = commandes;
-    }
 }

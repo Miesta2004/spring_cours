@@ -1,15 +1,19 @@
 package com.example.spring.services.impl;
 
 
+import com.example.spring.data.entities.Client;
 import com.example.spring.data.entities.Commande;
 import com.example.spring.data.repository.CommandeRepository;
+import com.example.spring.services.CommandeService;
 import com.example.spring.services.IService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CommandeServiceImpl implements IService<Commande> {
+public class CommandeServiceImpl implements CommandeService {
 
     private final CommandeRepository commandeRepository;
 
@@ -51,5 +55,15 @@ public class CommandeServiceImpl implements IService<Commande> {
     @Override
     public List<Commande> getAll() {
         return commandeRepository.findAll();
+    }
+
+    @Override
+    public Page<Commande> getAllCommandes(Pageable pageable) {
+        return commandeRepository.findAll(pageable);
+    }
+
+    @Override
+    public List<Commande> getCommandeByClient(Client client) {
+        return commandeRepository.getCommandeByClient(client);
     }
 }

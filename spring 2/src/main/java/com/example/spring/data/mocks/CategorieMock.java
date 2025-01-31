@@ -4,12 +4,14 @@ import com.example.spring.data.entities.Categorie;
 import com.example.spring.data.repository.CategorieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Order(1)
 //@RequiredArgsConstructor
 public class CategorieMock implements CommandLineRunner {
 
@@ -19,10 +21,11 @@ public class CategorieMock implements CommandLineRunner {
         this.categorieRepository = categorieRepository;
     }
 
+
     @Override
     public void run(String... args) throws Exception {
         List<Categorie> categories = new ArrayList<>();
-        for(int i = 0; i < 10; i++){
+        for(int i = 1; i < 10; i++){
             Categorie cat = new Categorie();
             cat.setName("Categorie"+i);
             cat.setCode("CAT"+i);
