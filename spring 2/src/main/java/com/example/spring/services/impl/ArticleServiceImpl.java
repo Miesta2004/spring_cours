@@ -4,7 +4,6 @@ import com.example.spring.data.entities.Article;
 import com.example.spring.data.repository.ArticleRepository;
 import com.example.spring.data.repository.CategorieRepository;
 import com.example.spring.services.ArticleService;
-import com.example.spring.services.IService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

@@ -7,11 +7,13 @@ import com.example.spring.web.controllers.ArticleController;
 import com.example.spring.web.dto.request.ArticleCreateRequest;
 import com.example.spring.web.dto.response.ArticleAllResponse;
 import com.example.spring.web.dto.response.ArticleOneResponse;
+import com.example.spring.web.dto.response.RestResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ArticleControllerImpl implements ArticleController {
@@ -29,10 +31,10 @@ public class ArticleControllerImpl implements ArticleController {
     }
 
     @Override
-    public ResponseEntity<ArticleOneResponse> getArticle(Long id) {
+    public ResponseEntity<Map<String,Object>> getArticle(Long id) {
         var article = articleService.getById(id);
         if (article!= null) {
-            return new ResponseEntity<>(new ArticleOneResponse(article), HttpStatus.OK);
+            return new ResponseEntity<>(RestResponse.response(HttpStatus.OK,new ArticleOneResponse(article),"article"), HttpStatus.OK);
         }
         return null;
     }

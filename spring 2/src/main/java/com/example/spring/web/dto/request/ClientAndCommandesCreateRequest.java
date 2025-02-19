@@ -1,9 +1,7 @@
 package com.example.spring.web.dto.request;
 
 import com.example.spring.data.entities.Client;
-import com.example.spring.data.entities.Commande;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClientAndCommandesCreateRequest {
@@ -12,7 +10,7 @@ public class ClientAndCommandesCreateRequest {
     private String prenom;
     private String telephone;
     private String adresse;
-    private List<Commande> commandes;
+    private List<CommandeCreateRequest> commandes;
 
     public Client toEntity(){
         var client = new Client();
@@ -64,11 +62,11 @@ public class ClientAndCommandesCreateRequest {
         this.adresse = adresse;
     }
 
-    public List<Commande> getCommandes() {
+    public List<CommandeCreateRequest> getCommandes() {
         return commandes;
     }
 
-    public void setCommandes(List<Commande> commandes) {
+    public void setCommandes(List<CommandeCreateRequest> commandes) {
         this.commandes = commandes;
     }
 }

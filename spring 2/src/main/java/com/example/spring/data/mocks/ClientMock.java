@@ -1,16 +1,11 @@
 package com.example.spring.data.mocks;
 
 import com.example.spring.data.entities.Client;
-import com.example.spring.data.entities.Commande;
-import com.example.spring.data.enums.Status;
-import com.example.spring.data.repository.CommandeRepository;
 import com.example.spring.services.ClientService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 @Order(1)

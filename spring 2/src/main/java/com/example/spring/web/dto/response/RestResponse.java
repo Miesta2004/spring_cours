@@ -14,11 +14,10 @@ public class RestResponse {
         return map;
     }
 
-    public static Map<String,Object> responsePaginate(HttpStatus status, Object data, String type , Object pages, Integer currentPage,
+    public static Map<String,Object> responsePaginate(HttpStatus status, String type , Object pages, Integer currentPage,
                                                       Integer totalPages, Integer totalItems, Boolean first, Boolean last) {
         Map<String,Object> map = new HashMap<String,Object>();
         map.put("status",status);
-        map.put("results",data);
         map.put("type",type);
         map.put("pages",pages);
         map.put("currentPage",currentPage);
@@ -28,4 +27,5 @@ public class RestResponse {
         map.put("last",last);
         return map;
     }
+
 }

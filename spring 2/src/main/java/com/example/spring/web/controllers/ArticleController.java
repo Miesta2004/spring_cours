@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RequestMapping("/api/article")
@@ -17,7 +18,7 @@ import java.util.List;
 // dans la classe implémentant l'interface ArticleController.java.
 public interface ArticleController extends IController<ArticleAllResponse> {
     @GetMapping("/one/{id}")
-    ResponseEntity<ArticleOneResponse> getArticle(@PathVariable() Long id);
+    ResponseEntity<Map<String,Object>> getArticle(@PathVariable() Long id);
     @PostMapping("/create")
     ResponseEntity<ArticleOneResponse> createArticle(ArticleCreateRequest data);
     @PutMapping("/update/{id}")

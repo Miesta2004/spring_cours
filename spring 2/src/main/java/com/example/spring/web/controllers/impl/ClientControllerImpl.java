@@ -2,11 +2,10 @@ package com.example.spring.web.controllers.impl;
 
 import com.example.spring.data.entities.Client;
 import com.example.spring.services.ClientService;
-import com.example.spring.services.IService;
 import com.example.spring.web.controllers.ClientController;
 import com.example.spring.web.dto.request.ClientAndCommandesCreateRequest;
 import com.example.spring.web.dto.response.ClientSimpleResponse;
-import com.example.spring.web.dto.response.ClientWithCommandesResponse;
+import com.example.spring.web.dto.response.RestResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class ClientControllerImpl implements ClientController {
@@ -34,18 +34,40 @@ public class ClientControllerImpl implements ClientController {
     }
 
     @Override
-    public ResponseEntity<Page<ClientSimpleResponse>> getClients(int page, int size) {
+    public ResponseEntity<Map<String, Object>> getClients(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        var clients = clientService.getAllClients(pageable);
-        Page<ClientSimpleResponse> clientsResponse = clients.map(entity -> new ClientSimpleResponse(entity));
-        return new ResponseEntity<>(clientsResponse, HttpStatus.OK);
+        Page<ClientSimpleResponse> clientsResponse = clientService.getAllClients(pageable)
+                .map(ClientSimpleResponse::new);
+
+        Map<String, Object> response = RestResponse.responsePaginate(
+                HttpStatus.OK,
+                "ClientSimpleResponse",
+                clientsResponse.getContent(),  // Liste paginée des clients
+                clientsResponse.getNumber(),   // Page actuelle
+                clientsResponse.getTotalPages(),
+                (int) clientsResponse.getTotalElements(),
+                clientsResponse.isFirst(),
+                clientsResponse.isLast()
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
 
     @Override
     public ResponseEntity<ClientSimpleResponse> createClient(Client data) {
         Client client = clientService.create(data);
         if (client!= null) {
             return new ResponseEntity<>(new ClientSimpleResponse(client), HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+    }
+
+    @Override
+    public ResponseEntity<ClientAndCommandesCreateRequest> createClientAndCommandes(Client data) {
+        ClientAndCommandesCreateRequest clientAndCommandes = clientService.createClientAndCommandes(data);
+        if (clientAndCommandes!= null) {
+            return new ResponseEntity<>(clientAndCommandes, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
@@ -58,15 +80,6 @@ public class ClientControllerImpl implements ClientController {
         }
         return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
     }
-
-    @Override
-    public ResponseEntity<ClientWithCommandesResponse> getClientWithCommandes(Long clientId) {
-        Client client = clientService.getById(clientId);
-        if (client!= null) {
-            return new ResponseEntity<>(new ClientWithCommandesResponse(client), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);    }
-
     @Override
     public ResponseEntity<List<ClientSimpleResponse>> getAllObjects() {
         List<Client> clients = clientService.getAll();

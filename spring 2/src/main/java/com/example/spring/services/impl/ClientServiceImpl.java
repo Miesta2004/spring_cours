@@ -3,6 +3,7 @@ package com.example.spring.services.impl;
 import com.example.spring.data.entities.Client;
 import com.example.spring.data.repository.ClientRepository;
 import com.example.spring.services.ClientService;
+import com.example.spring.web.dto.request.ClientAndCommandesCreateRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -61,5 +62,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Page<Client> getAllClients(Pageable pageable) {
         return clientRepository.findAll(pageable);
+    }
+
+    @Override
+    public ClientAndCommandesCreateRequest createClientAndCommandes(Client data) {
+        return clientRepository.createClientWithCommandes(data);
     }
 }

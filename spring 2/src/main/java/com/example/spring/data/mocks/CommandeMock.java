@@ -36,6 +36,7 @@ public class CommandeMock implements CommandLineRunner {
                 commande.setDateCommande("2025-01-" + j);
                 commande.setStatus(j % 2 == 0 ? Status.EN_COURS : Status.FINALISER);
                 commande.setClient(client);
+                commandes.add(commande);
             }
         }
         commandeRepository.saveAllAndFlush(commandes);
